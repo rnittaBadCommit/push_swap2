@@ -1,6 +1,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#include <stdlib.h>
 
 #define LEN_NOT_POSITIVE -1
 #define LEN_OVER_SIZE -2
