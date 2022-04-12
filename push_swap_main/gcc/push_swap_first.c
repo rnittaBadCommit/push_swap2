@@ -3,7 +3,6 @@
 
 void split_by_mid4first(int n, int mid)
 {
-	static int a;
 	int i;
 
 	i = -1;
@@ -12,17 +11,12 @@ void split_by_mid4first(int n, int mid)
 		if (check_top('a') < mid)
 		{
 			rotate_stack('a');
-			record_ans(0, ROTATE);
-			printf("15\n");
-			a++;
-			if (a == 15)
-				exit (1);
+			record_ans('a', ROTATE);
 		}
 		else
 		{
 			push('a', pop('a'));
-			record_ans(0, PUSH);
-			printf("21\n");
+			record_ans('a', PUSH);
 		}
 	}
 }
@@ -56,5 +50,5 @@ void push_swap_first_process(t_all *all, t_tree *tree)
 		push_swap_process(tree->right, 0);
 	}
 	else
-		all = all;//last4
+		;//last4
 }

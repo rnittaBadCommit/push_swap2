@@ -1,9 +1,43 @@
 #include <stdio.h>
-#include "push_swap.h"
+
+#define SWAP 1
+#define PUSH 2
+#define ROTATE 3
+#define REVERSE_ROTATE 4
+#define POP 9
+
+
+typedef struct	s_databox
+{
+	int *data;
+	int min;
+	int size;
+	int mid;
+	s_databox *left;
+	s_databox *right;
+}				t_databox;
+
+typedef struct	s_all
+{
+	t_databox *databox_a;
+	t_databox *databox_b;
+	int index_a;
+	int index_b;
+}				t_all;
+
+typedef struct s_tree
+{
+	int aorb;
+	int min;
+	int mid;
+	int size;
+	int isbottom;
+	struct s_tree *left;
+	struct s_tree *right;
+}				t_tree;
 
 void split_by_mid4first(int n, int mid)
 {
-	static int a;
 	int i;
 
 	i = -1;
@@ -12,17 +46,12 @@ void split_by_mid4first(int n, int mid)
 		if (check_top('a') < mid)
 		{
 			rotate_stack('a');
-			record_ans(0, ROTATE);
-			printf("15\n");
-			a++;
-			if (a == 15)
-				exit (1);
+			record_ans('a', ROTATE);
 		}
 		else
 		{
-			push('a', pop('a'));
-			record_ans(0, PUSH);
-			printf("21\n");
+			push('a' + !aorb, pop('a' + aorb));
+			record_ans('a' + aorb, PUSH);
 		}
 	}
 }
@@ -56,5 +85,19 @@ void push_swap_first_process(t_all *all, t_tree *tree)
 		push_swap_process(tree->right, 0);
 	}
 	else
-		all = all;//last4
+		//last4
+}
+
+
+int push_swap_ini(t_all *all)
+{
+	//make_tree
+	//set first node
+
+}
+
+void push_swap_main(t_all *all)
+{
+	push_swap_ini(all);
+	push_swap_first_process(all, all->tree);
 }
