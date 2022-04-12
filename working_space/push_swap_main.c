@@ -10,8 +10,8 @@
 
 void record_ans(int aorb, int ans)
 {
-	write(1, "ab" + aorb, 1);
-	printf("%d\n", ans);
+	write(1, "ab" + aorb+ans, 0);
+	//printf("%d\n", ans);
 
 }
 
@@ -215,9 +215,27 @@ void push_swap_last3(int aorb)
 	}
 }
 
+void push_swap_last2_a()
+{
+
+}
+
+void push_swap_last2_b()
+{
+	
+}
+
+
 void push_swap_last_process(t_tree *tree)
 {
-	if (tree->size == 3)
+	if (tree->size == 2)
+	{
+		if (tree->aorb == 0)
+			push_swap_last2_a();
+		else
+			push_swap_last2_b();
+	}
+	else if (tree->size == 3)
 		push_swap_last3(tree->aorb);
 	else if (tree->size == 4)
 	{
@@ -227,7 +245,7 @@ void push_swap_last_process(t_tree *tree)
 			push_swap_last4_b();
 	}
 	else
-		printf("Error: push_swap_last_process\n");
+		printf("Error: push_swap_last_process\n  tree->size:%d\n", tree->size);
 }
 
 void make_child(t_tree *tree)
@@ -291,6 +309,7 @@ void push_swap_main(t_all *all)
 int main()
 {
 	t_all all;
+	all.size = 9;
 	ini_stack('a', 10, NULL);
 	ini_stack('b', 10, NULL);
 	push('a', 1);

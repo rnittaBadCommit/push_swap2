@@ -2,7 +2,7 @@ NAME = a.out
 CL = clang
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
-STEP = -g 00
+STEP = -g
 SANI = -fsanitize=address
 LEAK = -fsanitize=leak
 SRCS = push_swap_main.c push_swap_first.c stack.c 
@@ -27,13 +27,12 @@ fclean:
 re: fclean all
 
 step:  $(OBJS)
-	$(CC) $(CFLAGS) $(STEP) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(STEP) -o $(NAME) $(SRCS)
 
 sani:  $(OBJS)
 	$(CC) $(CFLAGS) $(SANI) -o $(NAME) $(OBJS)
 
 leak: $(OBJS)
 	$(CL) $(CFLAGS) $(LEAK) -o $(NAME) $(OBJS)
-
 
 .PHONY: clean fclean re

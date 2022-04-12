@@ -13,16 +13,16 @@ void split_by_mid4first(int n, int mid)
 		{
 			rotate_stack('a');
 			record_ans(0, ROTATE);
-			printf("15\n");
+			//printf("15\n");
 			a++;
-			if (a == 15)
-				exit (1);
+			if (a == 100)
+				exit (2);
 		}
 		else
 		{
 			push('a', pop('a'));
 			record_ans(0, PUSH);
-			printf("21\n");
+			//printf("21\n");
 		}
 	}
 }
@@ -32,6 +32,8 @@ void make_child4first(t_tree *tree)
 	t_tree *left_child;
 	t_tree *right_child;
 
+	tree->left = (t_tree *)malloc(sizeof(t_tree));
+	tree->right = (t_tree *)malloc(sizeof(t_tree));
 	left_child = tree->left;
 	right_child = tree->right;
 	left_child->aorb = tree->aorb;
@@ -48,8 +50,10 @@ void make_child4first(t_tree *tree)
 
 void push_swap_first_process(t_all *all, t_tree *tree)
 {
+	
 	if (tree->size > 4)
 	{
+		show_stack('a');
 		split_by_mid4first(tree->size, tree->mid);
 		make_child4first(tree);
 		push_swap_first_process(all, tree->left);
