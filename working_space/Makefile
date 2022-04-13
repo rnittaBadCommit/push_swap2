@@ -26,8 +26,9 @@ fclean:
 
 re: fclean all
 
-step:  $(OBJS)
-	$(CC) $(CFLAGS) $(STEP) -o $(NAME) $(SRCS)
+step:
+	rm ./a.out
+	$(CC) $(STEP) -o $(NAME) $(SRCS)
 
 sani:  $(OBJS)
 	$(CC) $(CFLAGS) $(SANI) -o $(NAME) $(OBJS)

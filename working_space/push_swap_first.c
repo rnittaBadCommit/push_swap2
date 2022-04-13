@@ -5,26 +5,29 @@ void split_by_mid4first(int n, int mid)
 {
 	static int a;
 	int i;
+	int tmp;
 
 	i = -1;
 	while (++i < n)
 	{
-		if (check_top('a') < mid)
+		if ((tmp = check_top('a')) < mid)
 		{
-			rotate_stack('a');
-			record_ans(0, ROTATE);
+			reverse_rotate_stack('a');
+			record_ans(0, REVERSE_ROTATE);
 			//printf("15\n");
 			a++;
-			if (a == 100)
+			if (a == -100)
 				exit (2);
 		}
 		else
 		{
-			push('a', pop('a'));
+			push('b', pop('a'));
 			record_ans(0, PUSH);
 			//printf("21\n");
 		}
 	}
+	show_stack('a');
+	show_stack('b');
 }
 
 void make_child4first(t_tree *tree)
@@ -53,12 +56,22 @@ void push_swap_first_process(t_all *all, t_tree *tree)
 	
 	if (tree->size > 4)
 	{
-		show_stack('a');
+		printf("push_swap_first_process\n");
 		split_by_mid4first(tree->size, tree->mid);
 		make_child4first(tree);
+		printf("left  size: %d\n", tree->left->size);
+		printf("right  size: %d\n", tree->right->size);
+		printf("\n");
 		push_swap_first_process(all, tree->left);
+		printf("push_swap_process\n");
 		push_swap_process(tree->right, 0);
 	}
 	else
+	{
 		all = all;//last4
+		printf("\nlast4\n");
+		show_stack('a');
+		show_stack('b');
+		printf("\n");
+	}
 }

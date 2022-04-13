@@ -15,6 +15,10 @@
 #define PUSH 2
 #define ROTATE 3
 #define REVERSE_ROTATE 4
+#define SHOW 5
+#define DELETE 6
+#define LEN 7
+#define CHECK 8
 #define POP 9
 
 typedef struct  s_stack

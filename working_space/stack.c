@@ -3,13 +3,6 @@
 #include <unistd.h>
 #include "push_swap.h"
 
-#define SHOW 5
-#define DELETE 6
-#define LEN 8
-#define CHECK 9
-
-
-
 void	ft_bzero(void *s, int size)
 {
 	char	*str;
@@ -90,7 +83,7 @@ int		stack_ini_process(t_stack *stack, int size)
 		stack->err = STACK_ALREADY_EXIST;
 	else if (size <= 0)
 		stack->err = BAD_SIZE;
-	else if (!(stack->data = (int *)malloc(size + 1)))
+	else if (!(stack->data = (int *)malloc(sizeof(int) * (size + 1))))
 		stack->err = MALLOC_FAIL;
 	else
 		return ((stack->size = size + 1));
@@ -139,7 +132,6 @@ int swap_top_process(t_stack *stack)
 	return (0);
 }
 
-
 int     stack(int i, int mode, int data)
 {
 	static  t_stack stack[800] = {};
@@ -163,7 +155,7 @@ int     stack(int i, int mode, int data)
 	else if (mode == LEN)
 		return (stack[i].len);
 	else if (mode == CHECK)
-		return (stack[i].data[stack[i].tail]);
+		return (stack[i].data[stack[i].tail - 1]);
 	return (-2);
 }
 
@@ -208,6 +200,7 @@ void	reverse_rotate_stack(int i)
 
 void	show_stack(int i)
 {
+	printf("%c: ", (char)i);
 	stack(i, SHOW, 0);
 }
 
@@ -223,7 +216,11 @@ void swap_top(int i)
 
 int check_top(int i)
 {
-	return (stack(i, CHECK, 0));
+	int ret;
+
+	ret = pop(i);
+	push(i, ret);
+	return (ret);
 }
 /*
 int main()
