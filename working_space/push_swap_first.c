@@ -63,7 +63,7 @@ void push_swap_first_process(t_all *all, t_tree *tree)
 		printf("right  size: %d\n", tree->right->size);
 		printf("\n");
 		push_swap_first_process(all, tree->left);
-		printf("push_swap_process\n");
+		printf("push_swap_process    in first.c\n");
 		push_swap_process(tree->right, 0);
 	}
 	else

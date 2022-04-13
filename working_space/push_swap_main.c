@@ -149,17 +149,21 @@ void push_swap_process(t_tree *tree, int b_size)
 		make_child(tree);
 		printf("left  size: %d\n", tree->left->size);
 		printf("right  size: %d\n", tree->right->size);
-		if (tree->aorb == 0)
+		if (tree->aorb == 1)
 			push_swap_process(tree->left, tree->right->size);
 		else
 			push_swap_process(tree->left, 0);
-		if (b_size)
+		if (tree->right->aorb == 0)
 		{
 			multi_rr_record_stack(tree->right->size);
-			multi_rotate_record_stack(tree->right->aorb, b_size - tree->right->size);
+			multi_rotate_record_stack(1, b_size - tree->right->size);
 		}
 		else
 			multi_rotate_record_stack(tree->right->aorb, tree->right->size);
+		printf("move to right, b_size: %d\n", b_size);
+		show_stack('a');
+		show_stack('b');
+		printf("\n");
 		push_swap_process(tree->right, 0);
 	}
 }
@@ -181,10 +185,14 @@ void push_swap_main(t_all *all)
 
 int main()
 {
+	int n = 50;
 	t_all all;
-	all.size = 21;
-	ini_stack('a', 21, NULL);
-	ini_stack('b', 21, NULL);
+	all.size = n;
+	ini_stack('a', n, NULL);
+	ini_stack('b', n, NULL);
+	for (int i = 0; i < n; i++)
+		push('a', i);
+	/*
 	push('a', 1);
 	push('a', 4);
 	push('a', 7);
@@ -208,6 +216,7 @@ int main()
 	push('a', 11);
 	rotate_stack('a');
 	rotate_stack('a');
+	*/
 	show_stack('a');
 	printf("\n");
 	push_swap_main(&all);
