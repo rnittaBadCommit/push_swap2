@@ -27,7 +27,7 @@ fclean:
 re: fclean all
 
 step:
-	rm ./a.out
+	rm -f ./a.out
 	$(CC) $(STEP) -o $(NAME) $(SRCS)
 
 sani:  $(OBJS)
