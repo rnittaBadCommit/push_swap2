@@ -58,8 +58,10 @@ typedef struct s_tree
 	int mid;
 	int size;
 	int isbottom;
+	int is_rotate_left;
 	struct s_tree *left;
 	struct s_tree *right;
+	struct s_tree *parent;
 }				t_tree;
 
 typedef struct	s_all

@@ -128,12 +128,15 @@ void make_child(t_tree *tree)
 	tree->right = (t_tree *)malloc(sizeof(t_tree));
 	left_child = tree->left;
 	right_child = tree->right;
+	left_child->parent = tree;
+	right_child->parent = tree;
 	left_child->aorb = !tree->aorb;
 	left_child->min = tree->min;
 	left_child->size = tree->size / 2;
 	left_child->mid = left_child->min + left_child->size / 2;
 	right_child = tree->right;
 	right_child->aorb = tree->aorb;
+	right_child->is_rotate_left = 1;
 	right_child->min = left_child->min + left_child->size;
 	right_child->size = tree->size - left_child->size;
 	right_child->mid = right_child->min + right_child->size / 2;
@@ -157,8 +160,9 @@ void push_swap_process(t_tree *tree, int b_size)
 		{
 			multi_rr_record_stack(tree->right->size);
 			multi_rotate_record_stack(1, b_size - tree->right->size);
+			tree->parent->right->is_rotate_left = 0;
 		}
-		else
+		else if (tree->right->is_rotate_left)
 			multi_rotate_record_stack(tree->right->aorb, tree->right->size);
 		printf("move to right, b_size: %d\n", b_size);
 		show_stack('a');
