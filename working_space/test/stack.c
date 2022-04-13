@@ -72,6 +72,7 @@ int		show_process(t_stack *stack)
 		if (tmp == stack->size)
 			tmp = 0;
 	}
+	printf("\n");
 	return (0);
 
 //	setvbuf(stdout, (char *)NULL, _IONBF, 0);
