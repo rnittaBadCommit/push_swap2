@@ -62,6 +62,17 @@ int		reverse_rotate_process(t_stack *stack)
 int		show_process(t_stack *stack)
 {
 	int	i;
+	int	tmp;
+
+	i = -1;
+	tmp = stack->head;
+	while (++i < stack->len)
+	{
+		printf("%d ", stack->data[tmp++]);
+		if (tmp == stack->size)
+			tmp = 0;
+	}
+	return (0);
 
 //	setvbuf(stdout, (char *)NULL, _IONBF, 0);
 	
@@ -84,7 +95,7 @@ int		stack_ini_process(t_stack *stack, int size)
 		stack->err = STACK_ALREADY_EXIST;
 	else if (size <= 0)
 		stack->err = BAD_SIZE;
-	else if (!(stack->data = (int *)malloc(size + 1)))
+	else if (!(stack->data = (int *)malloc(sizeof(int) * (size + 1))))
 		stack->err = MALLOC_FAIL;
 	else
 		return ((stack->size = size + 1));
@@ -227,17 +238,12 @@ int check_top(int i)
 int main()
 {
 
-	printf("ini:%d\n\n", ini_stack('a', 10, NULL));
-	push('a', 1);
-	push('a', 2);
-	push('a', 3);
-	push('a', 4);
-	push('a', 5);
-	push('a', 6);
-	push('a', 7);
-	push('a', 8);
-	push('a', 9);
-	push('a', 10);
+	printf("ini:%d\n\n", ini_stack('a', 15, NULL));
+	for (int i = 0; i < 15; i++)
+		push('a', i);
+	for (int i = 0; i < 15; i++)
+		printf("%d ", pop('a'));
+	return (0);
 
 	show_stack('a');
 	printf("%d\n", check_top('a'));
