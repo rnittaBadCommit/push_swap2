@@ -146,7 +146,10 @@ void make_child(t_tree *tree)
 void push_swap_process(t_tree *tree, t_tree *tmp)//int b_size)
 {
 	if (tree->size <= 4)
+	{
 		push_swap_last_process(tree);
+//		tree->parent->right
+	}
 	else
 	{
 		split_by_mid(tree->aorb, tree->size, tree->mid);
@@ -157,21 +160,33 @@ void push_swap_process(t_tree *tree, t_tree *tmp)//int b_size)
 			push_swap_process(tree->left, tree->right);
 		else
 			push_swap_process(tree->left, tree->right);
-		if (tmp)
-		printf("move to right, tree->right->aorb: %d, tmp->size: %d, tree->right->is_rotate_left: %d\n", tree->right->aorb, tmp->size, tree->right->is_rotate_left);
+
 		if (tree->right->aorb == 0)
 		{
-			if (tmp->size)
+			if (tmp->is_rotate_left)
 			{
 				multi_rr_record_stack(tree->right->size);
 				multi_rotate_record_stack(1, tmp->size - tree->right->size);
 				tree->parent->right->is_rotate_left = 0;
+				printf("move to right, double,  tmp->size: %d\n", tmp->size);
+				show_stack('a');
+				show_stack('b');
+				write(1, "", 0);
 			}
 		}
 		else if (tree->right->is_rotate_left)
+		{
 			multi_rotate_record_stack(tree->right->aorb, tree->right->size);
-		show_stack('a');
-		show_stack('b');
+			printf("move to right, single\n");
+			show_stack('a');
+			show_stack('b');
+			write(1, "", 0);
+		}
+		else
+		{
+			show_stack('a');
+			show_stack('b');
+		}
 		printf("\n");
 		push_swap_process(tree->right, tree->right);
 	}
