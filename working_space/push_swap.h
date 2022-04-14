@@ -54,12 +54,14 @@ typedef struct	s_databox
 typedef struct s_tree
 {
 	int aorb;
+	int lorr;
 	int min;
 	int mid;
 	int size;
 	int isbottom;
 	int is_rotate_left;
 	int is_largest;
+	int tree_num;
 	struct s_tree *left;
 	struct s_tree *right;
 	struct s_tree *parent;
@@ -76,7 +78,7 @@ typedef struct	s_all
 	t_tree *tree;
 	int size;
 }				t_all;
-
+void *ft_malloc(int size);
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);
 void split_by_mid4first(int n, int mid);
@@ -106,7 +108,7 @@ void multi_record_stack2(int aorb, int tmp);
 void multi_record_stack(int aorb, long long int reversed_processes);
 void multi_rotate_record_stack(int aorb, int n);
 void multi_rr_record_stack(int n);
-void split_by_mid(int aorb, int n, int mid);
+void split_by_mid(int aorb, int n, int mid, int tree_num);
 void update_databox(int aorb, t_all *all);
 void push_swap_first(t_all *all);
 void push_swap_last4_a();
@@ -115,7 +117,7 @@ void push_swap_last3(int aorb);
 void push_swap_ini(t_all *all);
 void push_swap_last_process(t_tree *tree);
 void make_child(t_tree *tree);
-void push_swap_process(t_tree *tree, t_tree *tmp);
+int push_swap_process(t_tree *tree, t_tree *tmp);
 void push_swap_main(t_all *all);
 
 #endif
