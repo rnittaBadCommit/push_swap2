@@ -80,7 +80,7 @@ typedef struct	s_all
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);
 void split_by_mid4first(int n, int mid);
-void make_child4first(t_tree *tree);
+void make_child4first(t_tree *tree, int largest);
 void push_swap_first_process(t_all *all, t_tree *tree);
 void	ft_bzero(void *s, int size);
 int     pop_process(t_stack *stack);
@@ -115,7 +115,7 @@ void push_swap_last3(int aorb);
 void push_swap_ini(t_all *all);
 void push_swap_last_process(t_tree *tree);
 void make_child(t_tree *tree);
-void push_swap_process(t_tree *tree, int b_size);
+void push_swap_process(t_tree *tree, t_tree *tmp);
 void push_swap_main(t_all *all);
 
 #endif
