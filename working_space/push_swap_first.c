@@ -30,7 +30,7 @@ void split_by_mid4first(int n, int mid)
 	show_stack('b');
 }
 
-void make_child4first(t_tree *tree)
+void make_child4first(t_tree *tree, int is_largest)
 {
 	t_tree *left_child;
 	t_tree *right_child;
@@ -49,16 +49,19 @@ void make_child4first(t_tree *tree)
 	right_child->size = tree->size - left_child->size;
 	right_child->mid = right_child->min + right_child->size / 2;
 	right_child->isbottom = 0;
+	right_child->is_largest = is_largest;
 }
 
 void push_swap_first_process(t_all *all, t_tree *tree)
 {
-	
+	static int is_largest;
+
 	if (tree->size > 4)
 	{
 		printf("push_swap_first_process\n");
 		split_by_mid4first(tree->size, tree->mid);
-		make_child4first(tree);
+		make_child4first(tree, !is_largest);
+		is_largest = 1;
 		printf("left  size: %d\n", tree->left->size);
 		printf("right  size: %d\n", tree->right->size);
 		printf("\n");

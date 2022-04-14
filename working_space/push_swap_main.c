@@ -137,6 +137,7 @@ void make_child(t_tree *tree)
 	right_child = tree->right;
 	right_child->aorb = tree->aorb;
 	right_child->is_rotate_left = 1;
+	right_child->is_largest = tree->is_largest;
 	right_child->min = left_child->min + left_child->size;
 	right_child->size = tree->size - left_child->size;
 	right_child->mid = right_child->min + right_child->size / 2;
@@ -156,15 +157,20 @@ void push_swap_process(t_tree *tree, int b_size)
 			push_swap_process(tree->left, tree->right->size);
 		else
 			push_swap_process(tree->left, 0);
+		printf("move to right, b_size: %d, tree->right->aorb: %d, tree->right->is_rotate_left: %d\n", b_size, tree->right->aorb, tree->right->is_rotate_left);
 		if (tree->right->aorb == 0)
 		{
-			multi_rr_record_stack(tree->right->size);
-			multi_rotate_record_stack(1, b_size - tree->right->size);
-			tree->parent->right->is_rotate_left = 0;
+			if (!b_size)
+				printf("aaa\n");
+			if (tree->right->is_rotate_left)
+			{
+				multi_rr_record_stack(tree->right->size);
+				multi_rotate_record_stack(1, b_size - tree->right->size);
+				tree->parent->right->is_rotate_left = 0;
+			}
 		}
 		else if (tree->right->is_rotate_left)
 			multi_rotate_record_stack(tree->right->aorb, tree->right->size);
-		printf("move to right, b_size: %d\n", b_size);
 		show_stack('a');
 		show_stack('b');
 		printf("\n");

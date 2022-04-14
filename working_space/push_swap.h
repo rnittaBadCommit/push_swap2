@@ -59,6 +59,7 @@ typedef struct s_tree
 	int size;
 	int isbottom;
 	int is_rotate_left;
+	int is_largest;
 	struct s_tree *left;
 	struct s_tree *right;
 	struct s_tree *parent;
