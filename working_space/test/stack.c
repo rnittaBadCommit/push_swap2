@@ -240,6 +240,10 @@ int main()
 {
 
 	printf("ini:%d\n\n", ini_stack('a', 15, NULL));
+	show_stack('a');
+	printf("%d\n", check_top('a'));
+	return (0);
+
 	for (int i = 0; i < 15; i++)
 		push('a', i);
 	for (int i = 0; i < 15; i++)

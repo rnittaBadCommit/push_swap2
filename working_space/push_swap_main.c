@@ -10,6 +10,7 @@
 
 void record_ans(int aorb, int ans)
 {
+
 	write(1, "ab" + aorb+ans, 0);
 	//printf("%d\n", ans);
 
@@ -61,7 +62,7 @@ void multi_rr_record_stack(int n)
 	{
 		rotate_stack('a');
 		rotate_stack('b');
-		record_ans(0, REVERSE_ROTATE);
+		record_ans(0, DUAL_ROTATE);
 	}
 }
 
@@ -72,7 +73,7 @@ void split_by_mid(int aorb, int n, int mid, int tree_num)
 	i = -1;
 	while (++i < n)
 	{
-		if (check_top('a' + aorb) < mid)
+		if (check_top('a' + aorb) <= mid)
 		{
 			push('a' + !aorb, pop('a' + aorb));
 			record_ans(aorb, PUSH);
@@ -141,7 +142,10 @@ void push_swap_last_process(t_tree *tree)
 		printf("\n");
 }
 
-void make_child(t_tree *tree)
+
+
+
+void make_child(t_tree *tree, t_all *all)
 {
 	t_tree *left_child;
 	t_tree *right_child;
@@ -150,25 +154,23 @@ void make_child(t_tree *tree)
 	tree->right = (t_tree *)ft_malloc(sizeof(t_tree));
 	left_child = tree->left;
 	right_child = tree->right;
-	left_child->lorr = 0;
-	right_child->lorr = 1;
-	left_child->parent = tree;
-	right_child->parent = tree;
-	left_child->aorb = !tree->aorb;
-	left_child->min = tree->min;
-	left_child->size = tree->size / 2;
-	left_child->mid = left_child->min + left_child->size / 2;
 	left_child->tree_num = tree->tree_num * 2 + 1;
-	right_child = tree->right;
-	right_child->aorb = tree->aorb;
-	right_child->is_rotate_left = 1;
-	right_child->is_largest = tree->is_largest;
-	right_child->min = left_child->min + left_child->size;
-	right_child->size = tree->size - left_child->size;
-	right_child->mid = right_child->min + right_child->size / 2;
 	right_child->tree_num = tree->tree_num * 2 + 2;
+	left_child->aorb = !tree->aorb;
+	right_child->aorb = tree->aorb;
+	left_child->size = (tree->size + 1) / 2;
+	right_child->size = tree->size - left_child->size;
+	left_child->min = tree->min;
+	right_child->min = left_child->min + left_child->size;
+	left_child->mid = (left_child->min + (left_child->size - 1) / 2);
+	right_child->mid = (right_child->min + (right_child->size - 1) / 2);
+	left_child->rotate_left_size = 0;
+	right_child->rotate_left_size = right_child->size;
+	all->tree_stack[left_child->tree_num] = left_child;
+	all->tree_stack[right_child->tree_num] = right_child;
 }
 
+/*
 int push_swap_process(t_tree *tree, t_tree *tmp)//int b_size)
 {
 	int ret;
@@ -176,6 +178,7 @@ int push_swap_process(t_tree *tree, t_tree *tmp)//int b_size)
 	if (tree->size <= 2)
 	{
 		push_swap_last_process(tree);
+		printf("tree->lorr: %d\n", tree->lorr);
 		if (tree->lorr == 0)
 			return (0);
 		else
@@ -229,15 +232,70 @@ int push_swap_process(t_tree *tree, t_tree *tmp)//int b_size)
 	}
 	return (1);
 }
+*/
+
+void move2top(t_tree *tree, t_tree **tree_stack)
+{
+	int tmp;
+	int min;
+
+	if (tree->rotate_left_size)
+	{
+		if (tree->aorb == 0)
+		{
+			if ((tmp = check_top(!tree->aorb) != LEN_NOT_POSITIVE))
+			{
+				min = MIN(tree->rotate_left_size, tree_stack[tmp]->rotate_left_size);
+				multi_rr_record_stack(min);
+				tree->rotate_left_size -= min;
+				multi_rotate_record_stack(tree->aorb, tree->rotate_left_size);
+				tree->rotate_left_size = 0;
+				pop(tree->aorb);
+			}
+			else
+			{
+				multi_rotate_record_stack(tree->aorb, tree->rotate_left_size);
+			}
+
+		}
+		else
+		{
+			multi_rotate_record_stack(tree->aorb, tree->rotate_left_size);
+			pop(tree->aorb);
+		}
+	}
+}
+
+void push_swap_process(t_tree *tree, t_all *all, t_tree **tree_stack)
+{
+	move2top(tree, tree_stack);
+	if (tree->size <= 2)
+		push_swap_last_process(tree);
+	else
+	{
+		split_by_mid(tree->aorb, tree->size, tree->mid, tree->tree_num);
+		make_child(tree, all);
+		push(tree->aorb, tree->right->tree_num);
+		push_swap_process(tree->left, all, tree_stack);
+		push_swap_process(tree->right, all, tree_stack);
+	}
+}
 
 void push_swap_ini(t_all *all)
 {
+	t_tree *tree;
+
 	all->tree = (t_tree *)ft_malloc(sizeof(t_tree));
-	all->tree->size = all->size;
-	all->tree->min = 0;
-	all->tree->aorb = 0;
-	all->tree->mid = all->size / 2;
-	all->tree->tree_num = 0;
+	tree = all->tree;
+	tree->tree_num = 0;
+	tree->aorb = 0;
+	tree->size = all->size;
+	tree->min = 0;
+	tree->mid = (all->size - 1) / 2;
+	tree->rotate_left_size = 0;
+	all->tree_stack = (t_tree **)ft_malloc(sizeof(t_tree *) * all->size + 1);
+	ini_stack(0, all->size + 1, NULL);
+	ini_stack(1, all->size + 1, NULL);
 }
 
 void push_swap_main(t_all *all)
@@ -248,7 +306,7 @@ void push_swap_main(t_all *all)
 
 int main()
 {
-	int n = 100;
+	int n = 500;
 	t_all all;
 	all.size = n;
 	ini_stack('a', n, NULL);

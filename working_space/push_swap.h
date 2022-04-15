@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#define MIN(x, y) (x < y ? x : y)
+
 #define LEN_NOT_POSITIVE -1
 #define LEN_OVER_SIZE -2
 #define DELETED_STACK -3
@@ -20,6 +22,9 @@
 #define LEN 7
 #define CHECK 8
 #define POP 9
+
+
+
 
 typedef struct  s_stack
 {
@@ -53,18 +58,14 @@ typedef struct	s_databox
 
 typedef struct s_tree
 {
-	int aorb;
-	int lorr;
-	int min;
-	int mid;
-	int size;
-	int isbottom;
-	int is_rotate_left;
-	int is_largest;
 	int tree_num;
+	int aorb;
+	int size;
+	int min;
+	int mid;	//splitではmid以下かそれより大きいかで分ける
+	int rotate_left_size;
 	struct s_tree *left;
 	struct s_tree *right;
-	struct s_tree *parent;
 }				t_tree;
 
 typedef struct	s_all
@@ -77,12 +78,13 @@ typedef struct	s_all
 	int num_b;
 	t_tree *tree;
 	int size;
+	t_tree **tree_stack;
 }				t_all;
 void *ft_malloc(int size);
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);
 void split_by_mid4first(int n, int mid);
-void make_child4first(t_tree *tree, int largest);
+void make_child4first(t_tree *tree, t_all *all);
 void push_swap_first_process(t_all *all, t_tree *tree);
 void	ft_bzero(void *s, int size);
 int     pop_process(t_stack *stack);
@@ -116,8 +118,8 @@ void push_swap_last4_b();
 void push_swap_last3(int aorb);
 void push_swap_ini(t_all *all);
 void push_swap_last_process(t_tree *tree);
-void make_child(t_tree *tree);
-int push_swap_process(t_tree *tree, t_tree *tmp);
+void make_child(t_tree *tree, t_all *all);
+void push_swap_process(t_tree *tree, t_all *all, t_tree **tree_stack);
 void push_swap_main(t_all *all);
 
 #endif
