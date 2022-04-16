@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -Wextra
 STEP = -g
 SANI = -fsanitize=address
 LEAK = -fsanitize=leak
-SRCS = push_swap_main.c push_swap_first.c stack.c 
+SRCS = push_swap_main.c push_swap_first.c stack.c qsort.c
 OBJS = $(SRCS:.c=.o)
 	GIT = git
 

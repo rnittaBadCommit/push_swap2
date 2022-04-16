@@ -1,7 +1,9 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define MIN(x, y) (x < y ? x : y)
 
@@ -17,11 +19,12 @@
 #define PUSH 2
 #define ROTATE 3
 #define REVERSE_ROTATE 4
-#define SHOW 5
+#define POP 9
+#define DUAL_ROTATE 5
+#define SHOW 10
 #define DELETE 6
 #define LEN 7
 #define CHECK 8
-#define POP 9
 
 
 
@@ -80,6 +83,8 @@ typedef struct	s_all
 	int size;
 	t_tree **tree_stack;
 }				t_all;
+
+void data2order(int *array, int size);
 void *ft_malloc(int size);
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);

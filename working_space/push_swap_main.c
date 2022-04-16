@@ -8,6 +8,12 @@
 #define REVERSE_ROTATE 4
 #define POP 9
 
+
+// void last_4_a()
+// {
+// 	int tmp[]
+// }
+
 void record_ans(int aorb, int ans)
 {
 
@@ -91,17 +97,84 @@ void split_by_mid(int aorb, int n, int mid, int tree_num)
 	printf("\n");
 }
 
+
+// tmp:	0 1 2
+
+// 		0 1 2
+// 		0 2 1
+// 		1 0 2
+// 		1 2 0
+// 		2 0 1
+// 		2 1 0
+		
+void last_process_3a(t_tree *tree)
+{
+	int tmp[3];
+
+	tmp[0] = pop('a' + tree->aorb);
+	tmp[1] = pop('a' + tree->aorb);
+	tmp[2] = pop('a' + tree->aorb);
+	push('a' + tree->aorb, tmp[2]);
+	push('a' + tree->aorb, tmp[1]);
+	push('a' + tree->aorb, tmp[0]);
+	if (tmp[0] - tmp[1] == 2)		//2 0 1
+		multi_record_stack(tree->aorb, 4131);
+	else if (tmp[0] - tmp[1] == -2)	//0 2 1
+		multi_record_stack(tree->aorb, 1);
+	else if (tmp[0] - tmp[2] == 2)	//2 1 0
+		multi_record_stack(tree->aorb, 14131);
+	else if (tmp[0] - tmp[2] == -2)	//0 1 2
+		multi_record_stack(tree->aorb, 0);
+	else if (tmp[1] - tmp[2] == 2)	//1 2 0
+		multi_record_stack(tree->aorb, 1413);
+	else if (tmp[1] - tmp[2] == -2)	//1 0 2
+		multi_record_stack(tree->aorb, 324);
+}
+
+void last_process_3b(t_tree *tree)
+{
+	int tmp[3];
+
+	tmp[0] = pop('a' + tree->aorb);
+	tmp[1] = pop('a' + tree->aorb);
+	tmp[2] = pop('a' + tree->aorb);
+	push('a' + tree->aorb, tmp[2]);
+	push('a' + tree->aorb, tmp[1]);
+	push('a' + tree->aorb, tmp[0]);
+	if (tmp[0] - tmp[1] == 2)		//2 0 1
+		multi_record_stack(tree->aorb, 1999);
+	else if (tmp[0] - tmp[1] == -2)	//0 2 1
+	{
+		multi_record_stack(tree->aorb, 919);
+		multi_record_stack(0, 1);
+		multi_record_stack(tree->aorb, 9);
+	}
+	else if (tmp[0] - tmp[2] == 2)	//2 1 0
+		multi_record_stack(tree->aorb, 999);
+	else if (tmp[0] - tmp[2] == -2)	//0 1 2
+	{
+		multi_record_stack(tree->aorb, 1919);
+		multi_record_stack(0, 1);
+		multi_record_stack(tree->aorb, 9);
+	}
+	else if (tmp[1] - tmp[2] == 2)	//1 2 0
+		multi_record_stack(tree->aorb, 9199);
+	else if (tmp[1] - tmp[2] == -2)	//1 0 2
+		multi_record_stack(tree->aorb, 19199);
+}
+
 void push_swap_last_process(t_tree *tree)
 {
 	int tmp[3];
-	// if (tree->aorb)
-	// 	for (int i = 0; i < tree->size; i++)
-	// 		push('a', pop('b'));
-	// printf("push_swap_last_process\n");
-	// show_stack('a');
-	// show_stack('b');
-	// printf("\n");
-	if (tree->size == 2)
+
+	if (tree->size == 3)
+	{
+		if (tree->aorb == 0)
+			last_process_3a(tree);
+		else
+			last_process_3b(tree);
+	}
+	else if (tree->size == 2)
 	{
 		tmp[0] = pop('a' + tree->aorb);
 		tmp[1] = pop('a' + tree->aorb);
@@ -141,9 +214,6 @@ void push_swap_last_process(t_tree *tree)
 		show_stack('b');
 		printf("\n");
 }
-
-
-
 
 void make_child(t_tree *tree, t_all *all)
 {
@@ -304,9 +374,58 @@ void push_swap_main(t_all *all)
 	push_swap_first_process(all, all->tree);
 }
 
+
+int check_args(int argc, char **argv)
+{
+	if (argc == 1)
+		return (1);
+	return (0);
+}
+
+void main_ini(int *input, int size)
+{
+	int i;
+
+	ini_stack('a', size, NULL);
+	ini_stack('b', size, NULL);
+	i = -1;
+	while (++i < size)
+		push('a', input[i]);
+}
+
+int ft_atoi(char *s)
+{
+	return (atoi(s));
+}
+
+int main(int argc, char **argv)
+{
+	t_all all;
+	int i;
+	int *input;
+
+	ft_bzero(&all, sizeof(all));
+	if (check_args(argc, argv))
+		return (1);
+	all.size = argc - 1;
+	input = malloc(sizeof(int) * all.size);
+	i = -1;
+	while (++i < all.size)
+		if ((input[i] = ft_atoi(argv[i + 1])) == -1)
+		{
+			free(input);
+			return (1);
+		}
+	data2order(input, all.size);
+	main_ini(input, all.size);
+	push_swap_main(&all);
+	printf("argc: %d\n", argc);
+}
+
+/*
 int main()
 {
-	int n = 500;
+	int n = 21;
 	t_all all;
 	all.size = n;
 	ini_stack('a', n, NULL);
@@ -334,7 +453,7 @@ int main()
 	// push('a', 17);
 	// push('a', 15);
 	// push('a', 12);
-	// push('a', 11);
+	// push('a', 11);	//n = 21
 	// rotate_stack('a');
 	// rotate_stack('a');
 
@@ -356,3 +475,5 @@ int tmp;
 	if (flag)
 		printf("OK\n");
 }
+
+*/
