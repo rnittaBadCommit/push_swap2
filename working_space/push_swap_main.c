@@ -393,9 +393,25 @@ void main_ini(int *input, int size)
 		push('a', input[i]);
 }
 
-int ft_atoi(char *s)
+int ft_atoi(char *s, int *err_flag)
 {
-	return (atoi(s));
+	int ret;
+	int i;
+	int posi;
+
+	i = -1;
+	posi = 1;
+	if (s[0] == '-')
+	{
+		i++;
+		posi = -1;
+	}
+	while (s[++i])
+		if (s[i] >= '0' && s[i] <= '9')
+			ret = ret * 10 + s[i] - '0';
+		else
+			*err_flag = 1;
+	return (posi * ret);
 }
 
 int main(int argc, char **argv)
@@ -403,7 +419,9 @@ int main(int argc, char **argv)
 	t_all all;
 	int i;
 	int *input;
+	int err_flag;
 
+	err_flag = 0;
 	ft_bzero(&all, sizeof(all));
 	if (check_args(argc, argv))
 		return (1);
@@ -411,11 +429,12 @@ int main(int argc, char **argv)
 	input = malloc(sizeof(int) * all.size);
 	i = -1;
 	while (++i < all.size)
-		if ((input[i] = ft_atoi(argv[i + 1])) == -1)
-		{
-			free(input);
-			return (1);
-		}
+		input[i] = ft_atoi(argv[i + 1], &err_flag);
+	if (err_flag)
+	{
+		free(input);
+		return (1);
+	}
 	data2order(input, all.size);
 	main_ini(input, all.size);
 	push_swap_main(&all);
