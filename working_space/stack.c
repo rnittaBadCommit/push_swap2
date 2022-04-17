@@ -201,7 +201,7 @@ void	reverse_rotate_stack(int i)
 
 void	show_stack(int i)
 {
-	printf("%c: ", (char)i);
+	//printf("%c: ", (char)i);
 	stack(i, SHOW, 0);
 }
 

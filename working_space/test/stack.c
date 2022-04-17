@@ -251,7 +251,8 @@ int main()
 	return (0);
 
 	show_stack('a');
-	printf("%d\n", check_top('a'));
+	
+	("%d\n", check_top('a'));
 	show_stack('a');
 	rotate_stack('a');
 

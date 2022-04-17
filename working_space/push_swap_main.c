@@ -461,7 +461,7 @@ int main(int argc, char **argv)
 	main_ini(input, all.size);
 	push_swap_main(&all);
 	//zprintf("argc: %d\n", argc);
-	printf("======  count: %d  ======\n", count(0));
+	//printf("======  count: %d  ======\n", count(0));
 }
 
 /*
