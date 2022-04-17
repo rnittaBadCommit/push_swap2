@@ -14,12 +14,32 @@
 // 	int tmp[]
 // }
 
+int count(int n)
+{
+	static int c;
+
+	c += n;
+	return (c);
+}
+
 void record_ans(int aorb, int ans)
 {
-
-	write(1, "ab" + aorb+ans, 0);
-	//printf("%d\n", ans);
-
+	if (ans == PUSH && aorb != 2)
+		aorb = !aorb;
+	if (ans == ROTATE)
+		ans = REVERSE_ROTATE;
+	else if (ans == REVERSE_ROTATE)
+		ans = ROTATE;
+	if (ans == REVERSE_ROTATE)
+		write(1, "rr", 2);
+	else
+		write(1, "zspr" + ans, 1);	
+	if (aorb == 2)
+		write(1, "zspr" + ans, 1);
+	else
+		write(1, "ab" + aorb, 1);
+	write(1, "\n", 1);
+	count(1);
 }
 
 void multi_record_stack2(int aorb, int tmp)
@@ -68,7 +88,7 @@ void multi_rr_record_stack(int n)
 	{
 		rotate_stack('a');
 		rotate_stack('b');
-		record_ans(0, DUAL_ROTATE);
+		record_ans(2, ROTATE);
 	}
 }
 
@@ -90,11 +110,11 @@ void split_by_mid(int aorb, int n, int mid, int tree_num)
 			record_ans(aorb, ROTATE);
 		}
 	}
-	printf("split_by_mid\n");
-		printf("tree_num: %d\n", tree_num);
+	//zprintf("split_by_mid\n");
+		//zprintf("tree_num: %d\n", tree_num);
 	show_stack('a');
 	show_stack('b');
-	printf("\n");
+	//zprintf("\n");
 }
 
 
@@ -207,12 +227,12 @@ void push_swap_last_process(t_tree *tree)
 	// 		push_swap_last4_b();
 	// }
 
-		printf("push_swap_last_process\n  tree->size:%d\n", tree->size);
-		printf("tree_num: %d\n", tree->tree_num);
-	//exit(1);
+		//zprintf("push_swap_last_process\n  tree->size:%d\n", tree->size);
+		//zprintf("tree_num: %d\n", tree->tree_num);
+	//exit(2);
 		show_stack('a');
 		show_stack('b');
-		printf("\n");
+		//zprintf("\n");
 }
 
 void make_child(t_tree *tree, t_all *all)
@@ -377,6 +397,8 @@ void push_swap_main(t_all *all)
 
 int check_args(int argc, char **argv)
 {
+	if (!argv)
+		return(1);
 	if (argc == 1)
 		return (1);
 	return (0);
@@ -438,7 +460,8 @@ int main(int argc, char **argv)
 	data2order(input, all.size);
 	main_ini(input, all.size);
 	push_swap_main(&all);
-	printf("argc: %d\n", argc);
+	//zprintf("argc: %d\n", argc);
+	printf("======  count: %d  ======\n", count(0));
 }
 
 /*

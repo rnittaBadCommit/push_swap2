@@ -68,25 +68,25 @@ int		show_process(t_stack *stack)
 	tmp = stack->head;
 	while (++i < stack->len)
 	{
-		printf("%d ", stack->data[tmp++]);
+		// printf("%d ", stack->data[tmp++]);
 		if (tmp == stack->size)
 			tmp = 0;
 	}
-	printf("\n");
+	// printf("\n");
 	return (0);
 
 //	setvbuf(stdout, (char *)NULL, _IONBF, 0);
 	
 	i = stack->head;
 	while (i < stack->size && (stack->tail < stack->head || i < stack->tail))
-		write(1, "      ", 4 - printf("%d ", stack->data[i++]));
+		// write(1, "      ", 4 - printf("%d ", stack->data[i++]));
 	if (stack->tail < stack->head)
 	{
 		i = 0;
 		while (i < stack->tail)
-			write(1, "      ", 4 - printf("%d ", stack->data[i++]));
+			// write(1, "      ", 4 - printf("%d ", stack->data[i++]));
 	}
-	printf("\n");
+	// printf("\n");
 	return (0);
 }
 
@@ -213,7 +213,7 @@ void	reverse_rotate_stack(int i)
 
 void	show_stack(int i)
 {
-	printf("%c: ", (char)i);
+	// printf("%c: ", (char)i);
 	stack(i, SHOW, 0);
 }
 

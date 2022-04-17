@@ -13,7 +13,7 @@ void split_by_mid4first(int n, int mid)
 		{
 			reverse_rotate_stack('a');
 			record_ans(0, REVERSE_ROTATE);
-			//printf("15\n");
+			//zprintf("15\n");
 		}
 		else
 		{
@@ -60,25 +60,25 @@ void make_child4first(t_tree *tree, t_all *all)
 
 void push_swap_first_process(t_all *all, t_tree *tree)
 {
-	printf("push_swap_first_process\n");
+	//zprintf("push_swap_first_process\n");
 	if (tree->size > 2)
 	{
-		printf("split_by_mid4first\ttree_num: %d\n", tree->tree_num);
+		//zprintf("split_by_mid4first\ttree_num: %d\n", tree->tree_num);
 		split_by_mid4first(tree->size, tree->mid);
 		show_stack('a');
 		show_stack('b');
 		make_child4first(tree, all);
-		printf("left  size: %d\n", tree->left->size);
-		printf("right  size: %d\n", tree->right->size);
-		printf("\n");
+		//zprintf("left  size: %d\n", tree->left->size);
+		//zprintf("right  size: %d\n", tree->right->size);
+		//zprintf("\n");
 		push_swap_first_process(all, tree->left);
-		printf("push_swap_process    in first.c\n");
+		//zprintf("push_swap_process    in first.c\n");
 		push_swap_process(tree->right, all, all->tree_stack);
 	}
 	else
 	{
 		all = all;//last4
-		printf("push_swap_last_process\t\ttree_num: %d\t\tin first.c\n", tree->tree_num);
+		//zprintf("push_swap_last_process\t\ttree_num: %d\t\tin first.c\n", tree->tree_num);
 		push_swap_last_process(tree);
 	}
 }
