@@ -24,8 +24,10 @@ int count(int n)
 
 void record_ans(int aorb, int ans)
 {
-	if (ans == PUSH && aorb != 2)
+	if (ans == POP && aorb != 2)
 		aorb = !aorb;
+	if (ans == POP)
+		ans = PUSH;
 	if (ans == ROTATE)
 		ans = REVERSE_ROTATE;
 	else if (ans == REVERSE_ROTATE)
@@ -35,7 +37,7 @@ void record_ans(int aorb, int ans)
 	else
 		write(1, "zspr" + ans, 1);	
 	if (aorb == 2)
-		write(1, "zspr" + ans, 1);
+		write(1, "zsprr" + ans, 1);
 	else
 		write(1, "ab" + aorb, 1);
 	write(1, "\n", 1);
@@ -131,9 +133,9 @@ void last_process_3a(t_tree *tree)
 {
 	int tmp[3];
 
-	tmp[0] = pop('a' + tree->aorb);
-	tmp[1] = pop('a' + tree->aorb);
 	tmp[2] = pop('a' + tree->aorb);
+	tmp[1] = pop('a' + tree->aorb);
+	tmp[0] = pop('a' + tree->aorb);
 	push('a' + tree->aorb, tmp[2]);
 	push('a' + tree->aorb, tmp[1]);
 	push('a' + tree->aorb, tmp[0]);
@@ -148,16 +150,16 @@ void last_process_3a(t_tree *tree)
 	else if (tmp[1] - tmp[2] == 2)	//1 2 0
 		multi_record_stack(tree->aorb, 1413);
 	else if (tmp[1] - tmp[2] == -2)	//1 0 2
-		multi_record_stack(tree->aorb, 324);
+		multi_record_stack(tree->aorb, 413);
 }
 
 void last_process_3b(t_tree *tree)
 {
 	int tmp[3];
 
-	tmp[0] = pop('a' + tree->aorb);
-	tmp[1] = pop('a' + tree->aorb);
 	tmp[2] = pop('a' + tree->aorb);
+	tmp[1] = pop('a' + tree->aorb);
+	tmp[0] = pop('a' + tree->aorb);
 	push('a' + tree->aorb, tmp[2]);
 	push('a' + tree->aorb, tmp[1]);
 	push('a' + tree->aorb, tmp[0]);
@@ -201,23 +203,20 @@ void push_swap_last_process(t_tree *tree)
 		push('a' + tree->aorb, tmp[1]);
 		push('a' + tree->aorb, tmp[0]);
 		if (tree->aorb == 0 && tmp[1] > tmp[0])
-			swap_top('a');
+			multi_record_stack(tree->aorb, SWAP);
 		else if (tree->aorb == 1 && tmp[1] < tmp[0])
 		{
-			swap_top('b');
-			push('a', pop('b'));
-			push('a', pop('b'));
+			multi_record_stack(tree->aorb, 199);
 		}
 		else if (tree->aorb == 1)
 		{
-			push('a', pop('b'));
-			push('a', pop('b'));
+			multi_record_stack(tree->aorb, 99);
 		}
 	}
 	else if (tree->size == 1)
 	{
 		if (tree->aorb == 1)
-			push('a', pop('b'));
+			multi_record_stack(tree->aorb, POP);
 	}
 	// else if (tree->size == 4)
 	// {
@@ -359,7 +358,7 @@ void move2top(t_tree *tree, t_tree **tree_stack)
 void push_swap_process(t_tree *tree, t_all *all, t_tree **tree_stack)
 {
 	move2top(tree, tree_stack);
-	if (tree->size <= 2)
+	if (tree->size <= 3)
 		push_swap_last_process(tree);
 	else
 	{
@@ -412,7 +411,10 @@ void main_ini(int *input, int size)
 	ini_stack('b', size, NULL);
 	i = -1;
 	while (++i < size)
-		push('a', input[i]);
+		push('b', input[i]);
+	i = -1;
+	while (++i < size)
+		push('a', pop('b'));
 }
 
 int ft_atoi(char *s, int *err_flag)
@@ -421,6 +423,7 @@ int ft_atoi(char *s, int *err_flag)
 	int i;
 	int posi;
 
+	ret = 0;
 	i = -1;
 	posi = 1;
 	if (s[0] == '-')
@@ -443,6 +446,8 @@ int main(int argc, char **argv)
 	int *input;
 	int err_flag;
 
+
+
 	err_flag = 0;
 	ft_bzero(&all, sizeof(all));
 	if (check_args(argc, argv))
@@ -459,6 +464,8 @@ int main(int argc, char **argv)
 	}
 	data2order(input, all.size);
 	main_ini(input, all.size);
+
+	show_stack('a');
 	push_swap_main(&all);
 	//zprintf("argc: %d\n", argc);
 	//printf("======  count: %d  ======\n", count(0));

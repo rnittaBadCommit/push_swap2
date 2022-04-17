@@ -6,13 +6,14 @@ void split_by_mid4first(int n, int mid)
 	int i;
 	int tmp;
 
-	i = -1;
-	while (++i < n)
+	i = 0;
+	while (i < n)
 	{
 		if ((tmp = check_top('a')) <= mid)
 		{
 			reverse_rotate_stack('a');
 			record_ans(0, REVERSE_ROTATE);
+			i++;
 			//zprintf("15\n");
 		}
 		else
@@ -61,13 +62,13 @@ void make_child4first(t_tree *tree, t_all *all)
 void push_swap_first_process(t_all *all, t_tree *tree)
 {
 	//zprintf("push_swap_first_process\n");
-	if (tree->size > 2)
+	if (tree->size > 3)
 	{
 		//zprintf("split_by_mid4first\ttree_num: %d\n", tree->tree_num);
-		split_by_mid4first(tree->size, tree->mid);
+		make_child4first(tree, all);
+		split_by_mid4first(tree->left->size, tree->mid);
 		show_stack('a');
 		show_stack('b');
-		make_child4first(tree, all);
 		//zprintf("left  size: %d\n", tree->left->size);
 		//zprintf("right  size: %d\n", tree->right->size);
 		//zprintf("\n");

@@ -63,7 +63,7 @@ int		show_process(t_stack *stack)
 {
 	int	i;
 
-	return (0);
+	 //return (0);
 	setvbuf(stdout, (char *)NULL, _IONBF, 0);
 	i = stack->head;
 	while (i < stack->size && (stack->tail < stack->head || i < stack->tail))
