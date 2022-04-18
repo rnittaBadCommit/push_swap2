@@ -473,7 +473,13 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	data2order(input, all.size);
+	data2order(input, all.size, &err_flag);
+	if (err_flag)
+	{
+		free(input);
+		write(2, "Error\n", 6);
+		return (1);
+	}
 	i = -1;
 	while (++i < all.size)
 		input[i] = all.size - input[i] - 1;

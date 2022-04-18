@@ -44,7 +44,7 @@ void	ft_qsort(t_tmparray *array, int left, int right)
 	}
 }
 
-void data2order(int *array, int size)
+void data2order(int *array, int size, int *err_flag)
 {
 	int i;
 	t_tmparray *tmparray;
@@ -58,6 +58,9 @@ void data2order(int *array, int size)
 	}
 	ft_qsort(tmparray, 0, size - 1);
 	i = -1;
+	while (++i < size - 1)
+		if (array[tmparray[i].i] == array[tmparray[i + 1].i])
+			*err_flag = 1;
 	while (++i < size)
 		array[tmparray[i].i] = i;
 	free(tmparray);

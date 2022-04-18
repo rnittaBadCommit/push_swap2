@@ -85,7 +85,7 @@ typedef struct	s_all
 	t_tree **tree_stack;
 }				t_all;
 
-void data2order(int *array, int size);
+void data2order(int *array, int size, int *err_flag);
 void *ft_malloc(int size);
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);
