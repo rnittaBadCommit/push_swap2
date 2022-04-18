@@ -42,6 +42,9 @@ void record_ans(int aorb, int ans)
 		write(1, "ab" + aorb, 1);
 	write(1, "\n", 1);
 	count(1);
+
+	if (aorb == 0 && ans == PUSH)
+		write(1, "\n", 0);
 }
 
 void multi_record_stack2(int aorb, int tmp)
@@ -109,7 +112,7 @@ void split_by_mid(int aorb, int n, int mid, int tree_num)
 		else
 		{
 			reverse_rotate_stack('a' + aorb);
-			record_ans(!aorb, ROTATE);
+			record_ans(aorb, REVERSE_ROTATE);
 		}
 	}
 	//zprintf("split_by_mid\n");
