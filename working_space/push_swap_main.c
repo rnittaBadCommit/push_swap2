@@ -136,9 +136,9 @@ void last_process_3a(t_tree *tree)
 	tmp[2] = pop('a' + tree->aorb);
 	tmp[1] = pop('a' + tree->aorb);
 	tmp[0] = pop('a' + tree->aorb);
-	push('a' + tree->aorb, tmp[2]);
-	push('a' + tree->aorb, tmp[1]);
 	push('a' + tree->aorb, tmp[0]);
+	push('a' + tree->aorb, tmp[1]);
+	push('a' + tree->aorb, tmp[2]);
 	if (tmp[0] - tmp[1] == 2)		//2 0 1
 		multi_record_stack(tree->aorb, 4131);
 	else if (tmp[0] - tmp[1] == -2)	//0 2 1
@@ -467,6 +467,8 @@ int main(int argc, char **argv)
 
 	show_stack('a');
 	push_swap_main(&all);
+
+	show_stack('a');
 	//zprintf("argc: %d\n", argc);
 	//printf("======  count: %d  ======\n", count(0));
 }
