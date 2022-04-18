@@ -160,9 +160,9 @@ void last_process_3b(t_tree *tree)
 	tmp[2] = pop('a' + tree->aorb);
 	tmp[1] = pop('a' + tree->aorb);
 	tmp[0] = pop('a' + tree->aorb);
-	push('a' + tree->aorb, tmp[2]);
-	push('a' + tree->aorb, tmp[1]);
 	push('a' + tree->aorb, tmp[0]);
+	push('a' + tree->aorb, tmp[1]);
+	push('a' + tree->aorb, tmp[2]);
 	if (tmp[0] - tmp[1] == 2)		//2 0 1
 		multi_record_stack(tree->aorb, 1999);
 	else if (tmp[0] - tmp[1] == -2)	//0 2 1
@@ -463,8 +463,11 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	data2order(input, all.size);
+	i = -1;
+	while (++i < all.size)
+		printf("%d, ", input[i] = all.size - input[i] - 1);
+		printf("\n");
 	main_ini(input, all.size);
-
 	show_stack('a');
 	push_swap_main(&all);
 
