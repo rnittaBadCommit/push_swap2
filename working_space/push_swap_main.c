@@ -104,12 +104,12 @@ void split_by_mid(int aorb, int n, int mid, int tree_num)
 		if (check_top('a' + aorb) <= mid)
 		{
 			push('a' + !aorb, pop('a' + aorb));
-			record_ans(aorb, PUSH);
+			record_ans(!aorb, PUSH);
 		}
 		else
 		{
 			reverse_rotate_stack('a' + aorb);
-			record_ans(aorb, ROTATE);
+			record_ans(!aorb, ROTATE);
 		}
 	}
 	//zprintf("split_by_mid\n");

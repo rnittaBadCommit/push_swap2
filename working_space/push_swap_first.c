@@ -18,7 +18,7 @@ void split_by_mid4first(int n, int mid)
 		else
 		{
 			push('b', pop('a'));
-			record_ans(0, PUSH);
+			record_ans(1, PUSH);
 			//printf("21\n");
 			i++;
 		}
