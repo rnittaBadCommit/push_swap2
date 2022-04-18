@@ -419,7 +419,7 @@ void main_ini(int *input, int size)
 
 int ft_atoi(char *s, int *err_flag)
 {
-	int ret;
+	long long int ret;
 	int i;
 	int posi;
 
@@ -432,10 +432,20 @@ int ft_atoi(char *s, int *err_flag)
 		posi = -1;
 	}
 	while (s[++i])
+	{
 		if (s[i] >= '0' && s[i] <= '9')
 			ret = ret * 10 + s[i] - '0';
 		else
+		{
 			*err_flag = 1;
+			return (-1);
+		}
+		if ((posi == 1 && ret > INT_MAX) || (posi == -1 && -ret < INT_MIN))
+		{
+			*err_flag = 1;
+			return (-1);
+		}
+	}
 	return (posi * ret);
 }
 
@@ -460,13 +470,13 @@ int main(int argc, char **argv)
 	if (err_flag)
 	{
 		free(input);
+		write(2, "Error\n", 6);
 		return (1);
 	}
 	data2order(input, all.size);
 	i = -1;
 	while (++i < all.size)
-		printf("%d, ", input[i] = all.size - input[i] - 1);
-		printf("\n");
+		input[i] = all.size - input[i] - 1;
 	main_ini(input, all.size);
 	show_stack('a');
 	push_swap_main(&all);
