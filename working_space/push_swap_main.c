@@ -22,6 +22,35 @@ int count(int n)
 	return (c);
 }
 
+t_all *all_save(t_all *all)
+{
+	static t_all *save;
+
+	if (!save)
+		save = all;
+	return (save);
+}
+
+void try_rr(int *aorb)
+{
+	int tmp;
+	int min;
+	t_tree **tree_stack;
+
+	tree_stack = all_save(NULL)->tree_stack;
+	if ((tmp = check_top(!aorb) != LEN_NOT_POSITIVE))
+	{
+		*aorb = 2;
+		rotate_stack('a');
+		rotate_stack('b');
+		tree_stack[tmp]->rotate_left_size--;
+		if (tree_stack[tmp]->rotate_left_size == 0)
+			pop(!*aorb);
+	}
+	else
+		rotate_stack('a' + aorb);
+}
+
 void record_ans(int aorb, int ans)
 {
 	if (ans == POP && aorb != 2)
@@ -47,25 +76,28 @@ void record_ans(int aorb, int ans)
 		write(1, "\n", 0);
 }
 
-void multi_record_stack2(int aorb, int tmp)
+void multi_record_stack2(int aorb, int tmp, int flag)
 {
 	if (tmp == PUSH)
 		push('a' + aorb, pop('a' + !aorb));
 	else if (tmp == SWAP)
 		swap_top('a' + aorb);
 	else if (tmp == ROTATE)
-		rotate_stack('a' + aorb);
+		try_rr(&aorb);
 	else if (tmp == REVERSE_ROTATE)
 		reverse_rotate_stack('a' + aorb);
 	else if (tmp == POP)
 		push('a' + !aorb, pop('a' + aorb));
 	record_ans(aorb, tmp);
 }
+
 void multi_record_stack(int aorb, long long int reversed_processes)
 {
 	long long int processes;
+	int flag;
 
 	processes = 0;
+	flag = 1;
 	while (reversed_processes)
 	{
 		processes = processes * 10 + reversed_processes % 10;
@@ -73,7 +105,9 @@ void multi_record_stack(int aorb, long long int reversed_processes)
 	}
 	while (processes)
 	{
-		multi_record_stack2(aorb, processes % 10);
+		if (processes % 10 == POP || processes % 10 == PUSH)
+			flag = 0;
+		multi_record_stack2(aorb, processes % 10, flag);
 		processes /= 10;
 	}
 }
@@ -459,8 +493,7 @@ int main(int argc, char **argv)
 	int *input;
 	int err_flag;
 
-
-
+	all_save(&all);
 	err_flag = 0;
 	ft_bzero(&all, sizeof(all));
 	if (check_args(argc, argv))
