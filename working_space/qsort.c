@@ -61,6 +61,7 @@ void data2order(int *array, int size, int *err_flag)
 	while (++i < size - 1)
 		if (array[tmparray[i].i] == array[tmparray[i + 1].i])
 			*err_flag = 1;
+	i = -1;
 	while (++i < size)
 		array[tmparray[i].i] = i;
 	free(tmparray);
