@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = push_swap
 CL = clang
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
