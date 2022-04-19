@@ -47,7 +47,7 @@ void	main_ini(int *input, int size)
 		push('a', pop('b'));
 }
 
-int	main2(int *input, t_all *all)
+void	main2(int *input, t_all *all)
 {
 	int	err_flag;
 	int	i;
@@ -55,9 +55,9 @@ int	main2(int *input, t_all *all)
 	data2order(input, all->size, &err_flag);
 	if (err_flag)
 	{
-		ft_free_all(input);
+		ft_free_all();
 		write(2, "Error\n", 6);
-		return (3);
+		return ;
 	}
 	i = -1;
 	while (++i < all->size)
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 		input[i] = ft_atoi(argv[i + 1], &err_flag);
 	if (err_flag)
 	{
-		ft_free_all(input);
+		ft_free_all();
 		write(2, "Error\n", 6);
 		return (2);
 	}

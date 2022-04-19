@@ -67,7 +67,7 @@ void	move2top(t_tree *tree, t_tree **tree_stack)
 			tmp = check_top(!tree->aorb);
 			if ((tmp != LEN_NOT_POSITIVE))
 			{
-				min = MIN(tree->rotate_left_size, \
+				min = ft_min(tree->rotate_left_size, \
 					tree_stack[tmp]->rotate_left_size);
 				multi_rr_record_stack(min);
 				tree->rotate_left_size -= min;

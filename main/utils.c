@@ -11,7 +11,7 @@ void	ft_bzero(void *s, int size)
 		str[i] = 0;
 }
 
-int	min(int x, int y)
+int	ft_min(int x, int y)
 {
 	if (x < y)
 		return (x);

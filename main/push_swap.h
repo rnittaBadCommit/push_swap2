@@ -75,7 +75,9 @@ typedef struct s_all
 	t_tree	**tree_stack;
 }				t_all;
 
-int			min(int x, int y);
+void		try_rr(int *aorb, int flag);
+int			count(int n);
+int			ft_min(int x, int y);
 void		data2order(int *array, int size, int *err_flag);
 void		record_ans(int aorb, int ans);
 int			ini_array(char c, int size);
@@ -118,5 +120,6 @@ void		push_swap_last_process(t_tree *tree);
 void		make_child(t_tree *tree, t_all *all);
 void		push_swap_process(t_tree *tree, t_all *all, t_tree **tree_stack);
 void		push_swap_main(t_all *all);
+int			ft_atoi(char *s, int *err_flag);
 
 #endif
