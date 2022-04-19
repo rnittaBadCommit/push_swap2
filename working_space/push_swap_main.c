@@ -14,13 +14,50 @@
 // 	int tmp[]
 // }
 
+t_list *save_list()
+{
+	static t_list save;
+
+	return (&save);
+}
+
+void add_malloc_list(void *new)
+{
+	t_list *list;
+	t_list *tmp;
+
+	list = save_list();
+	tmp = list->next;
+	list->next = malloc(sizeof(t_list));
+	list->next->next = tmp;
+	list->next->p = new;
+}
+
+void ft_free_process(t_list *list)
+{
+	if (list->next)
+	{
+		ft_free_process(list->next);
+		free(list->next);
+	}
+	free(list->p);
+}
+
+void ft_free_all()
+{
+	t_list *list;
+
+	list = save_list();
+	if (list->next)
+		ft_free_process(list->next);
+	free(list->next);
+}
+
 int count(int n)
 {
 	static int c;
 
 	c += n;
-	if (c == 1000)
-		exit(1);
 	return (c);
 }
 
@@ -33,7 +70,7 @@ t_all *all_save(t_all *all)
 	return (save);
 }
 
-void try_rr(int *aorb)
+void try_rr(int *aorb, int flag)
 {
 	int tmp;
 	int min;
@@ -42,7 +79,7 @@ void try_rr(int *aorb)
 
 	all = all_save(NULL);
 	tree_stack = all->tree_stack;
-	if ((tmp = check_top(!*aorb) != LEN_NOT_POSITIVE) && 0)
+	if (((tmp = check_top(!*aorb)) != LEN_NOT_POSITIVE) && flag)
 	{
 		*aorb = 2;
 		rotate_stack('a');
@@ -87,7 +124,7 @@ void multi_record_stack2(int aorb, int tmp, int flag)
 	else if (tmp == SWAP)
 		swap_top('a' + aorb);
 	else if (tmp == ROTATE)
-		try_rr(&aorb);
+		try_rr(&aorb, flag);
 	else if (tmp == REVERSE_ROTATE)
 		reverse_rotate_stack('a' + aorb);
 	else if (tmp == POP)
@@ -296,6 +333,8 @@ void make_child(t_tree *tree, t_all *all)
 	right_child->mid = (right_child->min + (right_child->size - 1) / 2);
 	left_child->rotate_left_size = 0;
 	right_child->rotate_left_size = right_child->size;
+	left_child->is_largest = 0;
+	right_child->is_largest = tree->is_largest;
 	all->tree_stack[left_child->tree_num] = left_child;
 	all->tree_stack[right_child->tree_num] = right_child;
 }
@@ -369,7 +408,7 @@ void move2top(t_tree *tree, t_tree **tree_stack)
 	int tmp;
 	int min;
 
-	if (tree->rotate_left_size)
+	if (tree->rotate_left_size && tree->is_largest == 0)
 	{
 		if (tree->aorb == 0)
 		{
@@ -424,6 +463,7 @@ void push_swap_ini(t_all *all)
 	tree->min = 0;
 	tree->mid = (all->size - 1) / 2;
 	tree->rotate_left_size = 0;
+	tree->is_largest = 1;
 	all->tree_stack = (t_tree **)ft_malloc(sizeof(t_tree *) * all->size + 1);
 	ini_stack(0, all->size + 1, NULL);
 	ini_stack(1, all->size + 1, NULL);
@@ -504,7 +544,7 @@ int main(int argc, char **argv)
 	if (check_args(argc, argv))
 		return (1);
 	all.size = argc - 1;
-	input = malloc(sizeof(int) * all.size);
+	input = ft_malloc(sizeof(int) * all.size);
 	i = -1;
 	while (++i < all.size)
 		input[i] = ft_atoi(argv[i + 1], &err_flag);
@@ -529,6 +569,7 @@ int main(int argc, char **argv)
 	push_swap_main(&all);
 
 	show_stack('a');
+	finish(all);
 	//zprintf("argc: %d\n", argc);
 	//printf("======  count: %d  ======\n", count(0));
 }

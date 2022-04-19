@@ -26,5 +26,10 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "files.associations": {
+    "stdio.h": "c",
+    "push_swap.h": "c",
+    "limits.h": "c"
+  }
 }

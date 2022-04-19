@@ -49,7 +49,7 @@ void data2order(int *array, int size, int *err_flag)
 	int i;
 	t_tmparray *tmparray;
 
-	tmparray = malloc(sizeof(t_tmparray) * size);
+	tmparray = ft_malloc(sizeof(t_tmparray) * size);
 	i = -1;
 	while (++i < size)
 	{

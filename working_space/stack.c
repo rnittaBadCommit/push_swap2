@@ -84,7 +84,7 @@ int		stack_ini_process(t_stack *stack, int size)
 		stack->err = STACK_ALREADY_EXIST;
 	else if (size <= 0)
 		stack->err = BAD_SIZE;
-	else if (!(stack->data = (int *)malloc(sizeof(int) * (size + 1))))
+	else if (!(stack->data = (int *)ft_malloc(sizeof(int) * (size + 1))))
 		stack->err = MALLOC_FAIL;
 	else
 		return ((stack->size = size + 1));

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
+#include "ft_malloc.h"
 
 #define MIN(x, y) (x < y ? x : y)
 
@@ -68,6 +69,7 @@ typedef struct s_tree
 	int min;
 	int mid;	//splitではmid以下かそれより大きいかで分ける
 	int rotate_left_size;
+	int is_largest;
 	struct s_tree *left;
 	struct s_tree *right;
 }				t_tree;
@@ -84,6 +86,12 @@ typedef struct	s_all
 	int size;
 	t_tree **tree_stack;
 }				t_all;
+
+typedef struct s_list
+{
+	struct s_list *next;
+	void *p;
+}				t_list;
 
 void data2order(int *array, int size, int *err_flag);
 void *ft_malloc(int size);
