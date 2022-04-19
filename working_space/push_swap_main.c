@@ -425,7 +425,7 @@ void push_swap_ini(t_all *all)
 	tree->mid = (all->size - 1) / 2;
 	tree->rotate_left_size = 0;
 	tree->is_largest = 1;
-	all->tree_stack = (t_tree **)ft_malloc2(sizeof(t_tree *) * all->size + 1, 5);
+	all->tree_stack = (t_tree **)ft_malloc2(sizeof(t_tree *) * all->size * 2 + 1, 5);
 	ini_stack(0, all->size + 1, NULL);
 	ini_stack(1, all->size + 1, NULL);
 }
