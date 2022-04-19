@@ -43,13 +43,9 @@ void ft_free_process(t_list *list, int i)
 	if (list->next)
 	{
 		ft_free_process(list->next, i + 1);
-		fprintf(stderr, "%d,   %p\n", list->index, list->next);
 		free(list->next);
 	}
-
-	fprintf(stderr, "%d,   %p\n", list->index, list->p);
 	free(list->p);
-	fprintf(stderr, "a\n");
 }
 
 void ft_free_all()
@@ -76,7 +72,6 @@ void *ft_malloc(int size, int index)
 	ret = malloc(size);
 	ft_bzero(ret, size);
 	add_malloc_list(ret, index);
-	fprintf(stderr, "--%p--\n", ret);
 	return (ret);
 }
 
