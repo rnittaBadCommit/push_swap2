@@ -19,6 +19,8 @@ int count(int n)
 	static int c;
 
 	c += n;
+	if (c == 1000)
+		exit(1);
 	return (c);
 }
 
@@ -36,9 +38,11 @@ void try_rr(int *aorb)
 	int tmp;
 	int min;
 	t_tree **tree_stack;
+	t_all *all;
 
-	tree_stack = all_save(NULL)->tree_stack;
-	if ((tmp = check_top(!aorb) != LEN_NOT_POSITIVE))
+	all = all_save(NULL);
+	tree_stack = all->tree_stack;
+	if ((tmp = check_top(!*aorb) != LEN_NOT_POSITIVE) && 0)
 	{
 		*aorb = 2;
 		rotate_stack('a');
@@ -48,7 +52,7 @@ void try_rr(int *aorb)
 			pop(!*aorb);
 	}
 	else
-		rotate_stack('a' + aorb);
+		rotate_stack('a' + *aorb);
 }
 
 void record_ans(int aorb, int ans)
@@ -369,11 +373,12 @@ void move2top(t_tree *tree, t_tree **tree_stack)
 	{
 		if (tree->aorb == 0)
 		{
-			if ((tmp = check_top(!tree->aorb) != LEN_NOT_POSITIVE))
+			if (((tmp = check_top(!tree->aorb)) != LEN_NOT_POSITIVE))
 			{
 				min = MIN(tree->rotate_left_size, tree_stack[tmp]->rotate_left_size);
 				multi_rr_record_stack(min);
 				tree->rotate_left_size -= min;
+				tree_stack[tmp]->rotate_left_size -= min;
 				multi_rotate_record_stack(tree->aorb, tree->rotate_left_size);
 				tree->rotate_left_size = 0;
 				pop(tree->aorb);
@@ -507,14 +512,14 @@ int main(int argc, char **argv)
 	{
 		free(input);
 		write(2, "Error\n", 6);
-		return (1);
+		return (2);
 	}
 	data2order(input, all.size, &err_flag);
 	if (err_flag)
 	{
 		free(input);
 		write(2, "Error\n", 6);
-		return (1);
+		return (3);
 	}
 	i = -1;
 	while (++i < all.size)

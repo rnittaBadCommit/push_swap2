@@ -112,7 +112,7 @@ void	show_stack(int i);
 int	delete_stack(int i);
 void swap_top(int i);
 int check_top(int i);
-t_all *all_save(t_all *all)
+t_all *all_save(t_all *all);
 void multi_record_stack2(int aorb, int tmp, int flag);
 void multi_record_stack(int aorb, long long int reversed_processes);
 void multi_rotate_record_stack(int aorb, int n);
