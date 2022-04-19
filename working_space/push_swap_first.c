@@ -25,24 +25,14 @@ void split_by_mid4first(int n, int mid)
 	}
 }
 
-void *ft_malloc(int size)
-{
-	void *ret;
-	t_list *list;
-
-	ret = malloc(size);
-	ft_bzero(ret, size);
-	add_malloc_list(ret);
-	return (ret);
-}
 
 void make_child4first(t_tree *tree, t_all *all)
 {
 	t_tree *left_child;
 	t_tree *right_child;
 
-	tree->left = (t_tree *)ft_malloc(sizeof(t_tree));
-	tree->right = (t_tree *)ft_malloc(sizeof(t_tree));
+	tree->left = (t_tree *)ft_malloc(sizeof(t_tree), 8);
+	tree->right = (t_tree *)ft_malloc(sizeof(t_tree), 9);
 	left_child = tree->left;
 	right_child = tree->right;
 	left_child->tree_num = tree->tree_num * 2 + 1;

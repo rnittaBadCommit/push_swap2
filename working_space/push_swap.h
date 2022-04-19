@@ -87,14 +87,7 @@ typedef struct	s_all
 	t_tree **tree_stack;
 }				t_all;
 
-typedef struct s_list
-{
-	struct s_list *next;
-	void *p;
-}				t_list;
-
 void data2order(int *array, int size, int *err_flag);
-void *ft_malloc(int size);
 void record_ans(int aorb, int ans);
 int     ini_array(char c, int size);
 void split_by_mid4first(int n, int mid);
@@ -125,7 +118,7 @@ void multi_record_stack2(int aorb, int tmp, int flag);
 void multi_record_stack(int aorb, long long int reversed_processes);
 void multi_rotate_record_stack(int aorb, int n);
 void multi_rr_record_stack(int n);
-void split_by_mid(int aorb, int n, int mid, int tree_num);
+void split_by_mid(int aorb, int n, int mid);
 void update_databox(int aorb, t_all *all);
 void push_swap_first(t_all *all);
 void push_swap_last4_a();

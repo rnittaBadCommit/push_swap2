@@ -84,8 +84,10 @@ int		stack_ini_process(t_stack *stack, int size)
 		stack->err = STACK_ALREADY_EXIST;
 	else if (size <= 0)
 		stack->err = BAD_SIZE;
-	else if (!(stack->data = (int *)ft_malloc(sizeof(int) * (size + 1))))
+	else if (!(stack->data = (int *)ft_malloc(sizeof(int) * (size + 1), 7)))
+	{exit(1);
 		stack->err = MALLOC_FAIL;
+	}
 	else
 		return ((stack->size = size + 1));
 	return (stack->err);
@@ -95,6 +97,7 @@ int		delete_process(t_stack *stack)
 {
 	if (stack->data)
 	{
+		exit(1);
 		free(stack->data);
 		ft_bzero(stack, sizeof(stack));
 		return (0);
@@ -207,6 +210,7 @@ void	show_stack(int i)
 
 int	delete_stack(int i)
 {
+	exit(0);
 	return (stack(i, DELETE, 0));
 }
 

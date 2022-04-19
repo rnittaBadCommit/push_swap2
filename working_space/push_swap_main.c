@@ -14,44 +14,6 @@
 // 	int tmp[]
 // }
 
-t_list *save_list()
-{
-	static t_list save;
-
-	return (&save);
-}
-
-void add_malloc_list(void *new)
-{
-	t_list *list;
-	t_list *tmp;
-
-	list = save_list();
-	tmp = list->next;
-	list->next = malloc(sizeof(t_list));
-	list->next->next = tmp;
-	list->next->p = new;
-}
-
-void ft_free_process(t_list *list)
-{
-	if (list->next)
-	{
-		ft_free_process(list->next);
-		free(list->next);
-	}
-	free(list->p);
-}
-
-void ft_free_all()
-{
-	t_list *list;
-
-	list = save_list();
-	if (list->next)
-		ft_free_process(list->next);
-	free(list->next);
-}
 
 int count(int n)
 {
@@ -73,7 +35,6 @@ t_all *all_save(t_all *all)
 void try_rr(int *aorb, int flag)
 {
 	int tmp;
-	int min;
 	t_tree **tree_stack;
 	t_all *all;
 
@@ -172,7 +133,7 @@ void multi_rr_record_stack(int n)
 	}
 }
 
-void split_by_mid(int aorb, int n, int mid, int tree_num)
+void split_by_mid(int aorb, int n, int mid)
 {
 	int i;
 
@@ -317,8 +278,8 @@ void make_child(t_tree *tree, t_all *all)
 	t_tree *left_child;
 	t_tree *right_child;
 
-	tree->left = (t_tree *)ft_malloc(sizeof(t_tree));
-	tree->right = (t_tree *)ft_malloc(sizeof(t_tree));
+	tree->left = (t_tree *)ft_malloc(sizeof(t_tree), 2);
+	tree->right = (t_tree *)ft_malloc(sizeof(t_tree), 3);
 	left_child = tree->left;
 	right_child = tree->right;
 	left_child->tree_num = tree->tree_num * 2 + 1;
@@ -443,7 +404,7 @@ void push_swap_process(t_tree *tree, t_all *all, t_tree **tree_stack)
 		push_swap_last_process(tree);
 	else
 	{
-		split_by_mid(tree->aorb, tree->size, tree->mid, tree->tree_num);
+		split_by_mid(tree->aorb, tree->size, tree->mid);
 		make_child(tree, all);
 		push(tree->aorb, tree->right->tree_num);
 		push_swap_process(tree->left, all, tree_stack);
@@ -455,7 +416,7 @@ void push_swap_ini(t_all *all)
 {
 	t_tree *tree;
 
-	all->tree = (t_tree *)ft_malloc(sizeof(t_tree));
+	all->tree = (t_tree *)ft_malloc(sizeof(t_tree), 4);
 	tree = all->tree;
 	tree->tree_num = 0;
 	tree->aorb = 0;
@@ -464,7 +425,7 @@ void push_swap_ini(t_all *all)
 	tree->mid = (all->size - 1) / 2;
 	tree->rotate_left_size = 0;
 	tree->is_largest = 1;
-	all->tree_stack = (t_tree **)ft_malloc(sizeof(t_tree *) * all->size + 1);
+	all->tree_stack = (t_tree **)ft_malloc2(sizeof(t_tree *) * all->size + 1, 5);
 	ini_stack(0, all->size + 1, NULL);
 	ini_stack(1, all->size + 1, NULL);
 }
@@ -544,20 +505,20 @@ int main(int argc, char **argv)
 	if (check_args(argc, argv))
 		return (1);
 	all.size = argc - 1;
-	input = ft_malloc(sizeof(int) * all.size);
+	input = ft_malloc(sizeof(int) * all.size, 1);
 	i = -1;
 	while (++i < all.size)
 		input[i] = ft_atoi(argv[i + 1], &err_flag);
 	if (err_flag)
 	{
-		free(input);
+		ft_free_all(input);
 		write(2, "Error\n", 6);
 		return (2);
 	}
 	data2order(input, all.size, &err_flag);
 	if (err_flag)
 	{
-		free(input);
+		ft_free_all(input);
 		write(2, "Error\n", 6);
 		return (3);
 	}
@@ -569,7 +530,7 @@ int main(int argc, char **argv)
 	push_swap_main(&all);
 
 	show_stack('a');
-	finish(all);
+	ft_free_all();
 	//zprintf("argc: %d\n", argc);
 	//printf("======  count: %d  ======\n", count(0));
 }
