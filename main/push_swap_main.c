@@ -52,6 +52,7 @@ void	main2(int *input, t_all *all)
 	int	err_flag;
 	int	i;
 
+	err_flag = 0;
 	data2order(input, all->size, &err_flag);
 	if (err_flag)
 	{
