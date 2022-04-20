@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:21 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 03:06:35 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 03:57:26 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	push_swap_ini(t_all *all)
 	tree->mid = (all->size - 1) / 2;
 	tree->rotate_left_size = 0;
 	tree->is_largest = 1;
-	all->tree_stack = (t_tree **)ft_malloc2 \
+	all->tree_stack = (t_tree **)ft_malloc \
 		(sizeof(t_tree *) * all->size * 2 + 1, 5);
 	ini_stack(0, all->size + 1, NULL);
 	ini_stack(1, all->size + 1, NULL);
@@ -79,9 +79,6 @@ void	main2(int *input, t_all *all)
 		input[i] = all->size - input[i] - 1;
 	main_ini(input, all->size);
 	push_swap_ini(all);
-	// if (all->size <= 6)
-	// 	under6(all, all->size);
-	// else
 	push_swap_first_process(all, all->tree);
 	ft_free_all();
 }
