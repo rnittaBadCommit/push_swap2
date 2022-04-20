@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:21 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 03:57:26 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:28:20 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	main2(int *input, t_all *all)
 	if (err_flag)
 	{
 		ft_free_all();
-		write(2, "Error\n", 6);
+		ft_write(2, "Error\n", 6);
 		return ;
 	}
 	i = -1;
@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	if (err_flag)
 	{
 		ft_free_all();
-		write(2, "Error\n", 6);
+		ft_write(2, "Error\n", 6);
 		return (2);
 	}
 	main2(input, &all);

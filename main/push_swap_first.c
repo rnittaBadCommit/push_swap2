@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:19 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 03:47:32 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:28:20 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	push_swap_last_min3(void)
 	push('a', tmp[1]);
 	push('a', tmp[2]);
 	if (tmp[0] - tmp[1] == 2)
-		write(1, "rra\n", 4);
+		ft_write(1, "rra\n", 4);
 	else if (tmp[0] - tmp[1] == -2)
-		write(1, "sa\n", 3);
+		ft_write(1, "sa\n", 3);
 	else if (tmp[0] - tmp[2] == 2)
-		write(1, "sa\nrra\n", 7);
+		ft_write(1, "sa\nrra\n", 7);
 	else if (tmp[0] - tmp[2] == -2)
-		write(1, "no", 0);
+		ft_write(1, "no", 0);
 	else if (tmp[1] - tmp[2] == 2)
-		write(1, "ra\n", 3);
+		ft_write(1, "ra\n", 3);
 	else if (tmp[1] - tmp[2] == -2)
-		write(1, "sa\nra\n", 6);
+		ft_write(1, "sa\nra\n", 6);
 }
 
 void	split_by_mid4first(int n, int mid)

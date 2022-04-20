@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:49 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 03:35:54 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:29:03 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ t_all	*all_save(t_all *all)
 	if (!save)
 		save = all;
 	return (save);
+}
+
+void	ft_write(int a, char *s, int size)
+{
+	if (write(a, s, size) == -1)
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
 }

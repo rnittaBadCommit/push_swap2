@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:36 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 01:23:55 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:28:20 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	record_ans(int aorb, int ans)
 	else if (ans == REVERSE_ROTATE)
 		ans = ROTATE;
 	if (ans == REVERSE_ROTATE)
-		write(1, "rr", 2);
+		ft_write(1, "rr", 2);
 	else
-		write(1, "zspr" + ans, 1);
+		ft_write(1, "zspr" + ans, 1);
 	if (aorb == 2)
-		write(1, "zsprr" + ans, 1);
+		ft_write(1, "zsprr" + ans, 1);
 	else
-		write(1, "ab" + aorb, 1);
-	write(1, "\n", 1);
+		ft_write(1, "ab" + aorb, 1);
+	ft_write(1, "\n", 1);
 	count(1);
 	if (aorb == 0 && ans == PUSH)
-		write(1, "\n", 0);
+		ft_write(1, "\n", 0);
 }
 
 void	multi_record_stack2(int aorb, int tmp, int flag)
