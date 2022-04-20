@@ -1,6 +1,6 @@
 NAME = push_swap
 CL = clang
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Werror -Wextra 
 STEP = -g
 SANI = -fsanitize=address
