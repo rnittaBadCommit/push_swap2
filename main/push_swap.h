@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:30 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 01:23:58 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 03:18:33 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_all
 	t_tree	*tree;
 	int		size;
 	t_tree	**tree_stack;
+	int		flag;
 }				t_all;
 
 void		try_rr(int *aorb, int flag);

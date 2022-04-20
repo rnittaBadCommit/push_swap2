@@ -6,12 +6,35 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:19 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 01:24:02 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 03:12:54 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "push_swap.h"
+
+void    push_swap_last_min3()
+{
+    int tmp[3];
+
+    tmp[2] = pop('a');
+	tmp[1] = pop('a');
+	tmp[0] = pop('a');
+	push('a', tmp[0]);
+	push('a', tmp[1]);
+	push('a', tmp[2]);
+    if (tmp[0] - tmp[1] == 2)
+		write(1, "rra\n", 4);
+	else if (tmp[0] - tmp[1] == -2)
+		write(1, "sa\n", 3);
+	else if (tmp[0] - tmp[2] == 2)
+		write(1, "sa\nrra\n", 7);
+	else if (tmp[0] - tmp[2] == -2)
+	    write(1, "no", 0);
+	else if (tmp[1] - tmp[2] == 2)
+		write(1, "ra\n", 3);
+	else if (tmp[1] - tmp[2] == -2)
+		write(1, "sa\nra\n", 6);
+}
 
 void	split_by_mid4first(int n, int mid)
 {
@@ -76,7 +99,10 @@ void	push_swap_first_process(t_all *all, t_tree *tree)
 	}
 	else
 	{
-		all = all;
-		push_swap_last_process(tree);
+		if (all->flag == 0)
+			push_swap_last_min3();
+		else
+			push_swap_last_process(tree);
+		all->flag = 1;
 	}
 }

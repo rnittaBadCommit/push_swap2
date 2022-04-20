@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:21 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 01:24:01 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 03:06:35 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_args(int argc, char **argv)
 	if (!argv)
 		return (1);
 	if (argc == 1)
+		return (1);
+	if (argc >= 214748364)
 		return (1);
 	return (0);
 }
@@ -77,6 +79,9 @@ void	main2(int *input, t_all *all)
 		input[i] = all->size - input[i] - 1;
 	main_ini(input, all->size);
 	push_swap_ini(all);
+	// if (all->size <= 6)
+	// 	under6(all, all->size);
+	// else
 	push_swap_first_process(all, all->tree);
 	ft_free_all();
 }
