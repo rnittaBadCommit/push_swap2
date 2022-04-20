@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:49 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 01:23:51 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 03:35:54 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,4 @@ t_all	*all_save(t_all *all)
 	if (!save)
 		save = all;
 	return (save);
-}
-
-int	ft_atoi(char *s, int *err_flag)
-{
-	long long int	ret;
-	int				i;
-	int				posi;
-
-	ret = 0;
-	i = -1;
-	posi = 1;
-	if (s[0] == '-' && i++)
-		posi = -1;
-	while (s[++i])
-	{
-		if (s[i] >= '0' && s[i] <= '9')
-			ret = ret * 10 + s[i] - '0';
-		else
-		{
-			*err_flag = 1;
-			return (-1);
-		}
-		if ((posi == 1 && ret > 2147483647) || (posi == -1 && ret > 2147483648))
-		{
-			*err_flag = 1;
-			return (-1);
-		}
-	}
-	return (posi * ret);
 }
