@@ -6,11 +6,22 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 03:40:48 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 03:44:46 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:37:10 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	is_sorted(int *input, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size - 1)
+		if (input[i] >= input[i + 1])
+			return ;
+	exit(0);
+}
 
 int	ft_atoi_err(int *err_flag)
 {

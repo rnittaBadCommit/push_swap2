@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:21 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 04:28:20 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:36:01 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (++i < all.size)
 		input[i] = ft_atoi(argv[i + 1], &err_flag);
+	if (!err_flag)
+		is_sorted(input, all.size);
 	if (err_flag)
 	{
 		ft_free_all();

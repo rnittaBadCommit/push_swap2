@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:30 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 04:28:57 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 04:36:36 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_all
 	int		flag;
 }				t_all;
 
+void		is_sorted(int *input, int size);
 void		ft_write(int a, char *s, int size);
 void		try_rr(int *aorb, int flag);
 int			count(int n);
