@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:23:36 by rnitta            #+#    #+#             */
-/*   Updated: 2022/04/21 04:28:20 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/04/21 11:14:40 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	record_ans(int aorb, int ans)
 	else if (ans == REVERSE_ROTATE)
 		ans = ROTATE;
 	if (ans == REVERSE_ROTATE)
-		ft_write(1, "rr", 2);
+		ft_write(1, (char *)"rr", 2);
 	else
-		ft_write(1, "zspr" + ans, 1);
+		ft_write(1, (char *)"zspr" + ans, 1);
 	if (aorb == 2)
-		ft_write(1, "zsprr" + ans, 1);
+		ft_write(1, (char *)"zsprr" + ans, 1);
 	else
-		ft_write(1, "ab" + aorb, 1);
+		ft_write(1, (char *)"ab" + aorb, 1);
 	ft_write(1, "\n", 1);
 	count(1);
 	if (aorb == 0 && ans == PUSH)
